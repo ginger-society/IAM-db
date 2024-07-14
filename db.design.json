@@ -1,0 +1,260 @@
+[
+  {
+    "id": "user",
+    "position": { "left": 189, "top": 48 },
+    "rows": [
+      {
+        "data": { "name": "pk", "field_name": "pk", "type": "BigAutoField" },
+        "id": "pk"
+      },
+      {
+        "data": {
+          "name": "firstName",
+          "type": "CharField",
+          "null": true,
+          "max_length": "40",
+          "id": "first_name",
+          "field_name": "first_name"
+        },
+        "id": "first_name"
+      },
+      {
+        "data": {
+          "type": "CharField",
+          "name": "lastName",
+          "field_name": "last_name",
+          "id": "last_name",
+          "null": true,
+          "max_length": "40"
+        },
+        "id": "last_name"
+      },
+      {
+        "id": "middle_name",
+        "data": {
+          "max_length": "40",
+          "type": "CharField",
+          "id": "middle_name",
+          "name": "middleName",
+          "null": true,
+          "field_name": "middle_name"
+        }
+      },
+      {
+        "data": {
+          "max_length": "100",
+          "type": "CharField",
+          "name": "emailId",
+          "field_name": "email_id",
+          "id": "email_id"
+        },
+        "id": "email_id"
+      },
+      {
+        "data": {
+          "null": true,
+          "id": "mobile_number",
+          "name": "mobileNumber",
+          "max_length": "15",
+          "type": "CharField",
+          "field_name": "mobile_number"
+        },
+        "id": "mobile_number"
+      },
+      {
+        "id": "created_at",
+        "data": {
+          "auto_now_add": true,
+          "name": "createdAt",
+          "type": "DateTimeField",
+          "id": "created_at",
+          "auto_now": false,
+          "field_name": "created_at"
+        }
+      },
+      {
+        "id": "updated_at",
+        "data": {
+          "type": "DateTimeField",
+          "id": "updated_at",
+          "auto_now": true,
+          "name": "updatedAt",
+          "field_name": "updated_at"
+        }
+      },
+      {
+        "data": {
+          "name": "passwordHash",
+          "null": true,
+          "type": "CharField",
+          "id": "password_hash",
+          "max_length": "400",
+          "field_name": "password_hash"
+        },
+        "id": "password_hash"
+      },
+      {
+        "id": "is_root",
+        "data": {
+          "name": "isRoot",
+          "field_name": "is_root",
+          "id": "is_root",
+          "type": "BooleanField"
+        }
+      }
+    ],
+    "data": {
+      "id": "user",
+      "name": "User",
+      "docs": "User's table",
+      "table_name": "user"
+    },
+    "type": "table"
+  },
+  {
+    "id": "token",
+    "position": { "left": 650, "top": 659 },
+    "rows": [
+      {
+        "id": "pk",
+        "data": { "type": "BigAutoField", "field_name": "pk", "name": "pk" }
+      },
+      {
+        "id": "session_hash",
+        "data": {
+          "type": "CharField",
+          "name": "sessionHash",
+          "field_name": "session_hash",
+          "id": "session_hash",
+          "null": true,
+          "max_length": "400"
+        }
+      },
+      {
+        "id": "user",
+        "data": {
+          "on_delete": "CASCADE",
+          "name": "user",
+          "target": "user",
+          "type": "ForeignKey",
+          "id": "user",
+          "related_name": "tokens",
+          "field_name": "user"
+        }
+      },
+      {
+        "data": {
+          "id": "app",
+          "type": "ForeignKey",
+          "field_name": "app",
+          "target": "app",
+          "name": "app",
+          "on_delete": "CASCADE"
+        },
+        "id": "app"
+      }
+    ],
+    "data": {
+      "id": "token",
+      "docs": "tokens like password hashes , TOTP , session tokens etc",
+      "table_name": "token",
+      "name": "Token"
+    },
+    "type": "table"
+  },
+  {
+    "id": "app",
+    "position": { "left": 1129, "top": 13 },
+    "rows": [
+      {
+        "data": { "type": "BigAutoField", "name": "pk", "field_name": "pk" },
+        "id": "pk"
+      },
+      {
+        "data": {
+          "max_length": "150",
+          "type": "CharField",
+          "name": "clientId",
+          "field_name": "client_id",
+          "id": "client_id"
+        },
+        "id": "client_id"
+      },
+      {
+        "id": "name",
+        "data": {
+          "id": "name",
+          "max_length": "50",
+          "name": "name",
+          "field_name": "name",
+          "type": "CharField"
+        }
+      }
+    ],
+    "data": {
+      "table_name": "app",
+      "name": "App",
+      "id": "app",
+      "docs": "Application"
+    },
+    "type": "table"
+  },
+  {
+    "id": "group",
+    "position": { "left": 1307, "top": 428 },
+    "rows": [
+      {
+        "data": { "name": "pk", "type": "BigAutoField", "field_name": "pk" },
+        "id": "pk"
+      },
+      {
+        "id": "identifier",
+        "data": {
+          "type": "CharField",
+          "id": "identifier",
+          "name": "identifier",
+          "field_name": "identifier",
+          "max_length": "50"
+        }
+      },
+      {
+        "id": "users",
+        "data": {
+          "related_name": "groups",
+          "field_name": "users",
+          "id": "users",
+          "name": "users",
+          "target": "user",
+          "type": "ManyToManyField"
+        }
+      },
+      {
+        "data": {
+          "related_name": "managed_groups",
+          "field_name": "owners",
+          "type": "ManyToManyField",
+          "target": "user",
+          "name": "owners",
+          "id": "owners"
+        },
+        "id": "owners"
+      },
+      {
+        "id": "disabled",
+        "data": {
+          "field_name": "disabled",
+          "type": "BooleanField",
+          "name": "disabled",
+          "id": "disabled"
+        }
+      }
+    ],
+    "data": {
+      "name": "Group",
+      "id": "group",
+      "docs": "Groups",
+      "table_name": "group"
+    },
+    "type": "table"
+  }
+]
